@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Allure Charts</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="/static/d3/tag_chart.js"></script>
+    <script src="/static/d3/step_variation.js"></script>
+    <script src="/static/d3/heatmap.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            background: #f5f7fa;
+        }
+
+        nav {
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 24px;
+            margin-right: 30px;
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 20px;
+        }
+
+        nav button:hover {
+            text-decoration: underline;
+        }
+
+        section {
+            display: none;
+            padding: 40px;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        .chart-container {
+            display: flex;
+            justify-content: center;
+            overflow-x: auto;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 10px;
+            right: 20px;
+            color: #999;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/">🏠</a>
+        <button onclick="showChart('tag')">Execution Time per Tag</button>
+        <button onclick="showChart('variation')">Step Execution Time Variation</button>
+        <button onclick="showChart('heatmap')">Step Execution Heatmap</button>
+    </nav>
+
+    <section id="tag" class="active">
+        <h2>Execution Time per Tag</h2>
+        <div id="tagChart" class="chart-container"></div>
+    </section>
+
+    <section id="variation">
+        <h2>Step Execution Time Variation</h2>
+        <div id="stepVariationChart" class="chart-container"></div>
+    </section>
+
+    <section id="heatmap">
+        <h2>Step Execution Heatmap</h2>
+        <div id="heatmapChart" class="chart-container"></div>
+    </section>
+
+    <div class="footer">Epam Project OneInc</div>
+
+    <script>
+        function showChart(chartId) {
+            document.querySelectorAll("section").forEach(sec => sec.classList.remove("active"));
+            document.getElementById(chartId).classList.add("active");
+        }
+
+        drawTagChart(() => {}, "all", "#tagChart");
+        renderStepVariationChart("#stepVariationChart");
+        renderHeatmapChart("#heatmapChart");
+    </script>
+</body>
+</html>

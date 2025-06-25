@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Allure Dashboard - Home</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa, #eaf2f8);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            color: #2c3e50;
+            position: relative;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        .instructions {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        form {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+            width: 360px;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+        }
+
+        .file-label {
+            display: inline-block;
+            background-color: #ecf0f1;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            width: 100%;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        nav {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        nav a {
+            color: #3498db;
+            text-decoration: none;
+            font-size: 24px;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 10px;
+            right: 20px;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .cartoon {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 120px;
+            height: auto;
+        }
+
+        .cartoon img {
+            width: 120px;
+            height: auto;
+            animation: bike-move 10s linear infinite;
+        }
+
+        @keyframes bike-move {
+            0%   { transform: translateX(-150%); }
+            100% { transform: translateX(120vw); }
+        }
+    </style>
+</head>
+<body>
+    <nav><a href="/">🏠</a></nav>
+    <h1>Upload Allure Report</h1>
+
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <label class="file-input-wrapper">
+            <span class="file-label">Choose Allure Report Folder</span>
+            <input type="file" name="report_folder" multiple required>
+        </label>
+        <button type="submit">Upload and View Charts</button>
+    </form>
+
+    <div class="instructions">
+        <strong>Instructions:</strong><br>
+        - Upload your Allure report folder.<br>
+        - After uploading, you’ll see 3 charts:<br>
+        &nbsp;&nbsp;1. <strong>Execution Time per Tag:</strong> Shows total time taken for each test case based on tags.<br>
+        &nbsp;&nbsp;2. <strong>Step Execution Time Variation:</strong> Visualizes how long individual steps take across different test cases.<br>
+        &nbsp;&nbsp;3. <strong>Step Execution Heatmap:</strong> Helps identify steps with high or low execution time across test cases.<br>
+        - Hover over bars or cells to see detailed info like step name, duration, and testcase ID.<br>
+        - Use this to detect bottlenecks, flaky tests, or performance outliers.
+    </div>
+
+    <div class="cartoon">
+        <img src="https://i.gifer.com/ScGA.gif" alt="Bike animation">
+    </div>
+
+    <div class="footer">Epam Project OneInc</div>
+</body>
+</html>
