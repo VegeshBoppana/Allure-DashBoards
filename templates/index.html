@@ -3,157 +3,458 @@
 <head>
     <meta charset="UTF-8">
     <title>Allure Dashboard - Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Roboto:wght@300;400;400i&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* General Body & Typography */
         body {
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #f8f9fa, #eaf2f8);
+            font-family: 'Roboto', sans-serif; /* A clean, readable font */
+            background: linear-gradient(135deg, #e0f2f7, #c6e0ff); /* Softer, refreshing gradient */
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             min-height: 100vh;
-            color: #2c3e50;
+            color: #333; /* Darker, more prominent text */
             position: relative;
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
         }
 
-        h1 {
-            margin-bottom: 10px;
+        /* Header & Navigation */
+        .app-header {
+            background-color: #ffffff; /* White background for header */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            position: fixed; /* Keep header visible */
+            top: 0;
+            left: 0;
+            z-index: 1000;
         }
 
-        .instructions {
-            max-width: 600px;
-            margin: 20px auto;
+        .main-nav .nav-home-link {
+            color: #007bff; /* Primary brand color */
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+
+        .main-nav .nav-home-link:hover {
+            color: #0056b3;
+        }
+
+        .main-nav .nav-home-link i {
+            margin-right: 8px;
+            font-size: 22px;
+        }
+
+        /* Main Content Wrapper */
+        .content-wrapper {
+            margin-top: 100px; /* Space for fixed header */
             padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            font-size: 15px;
-            line-height: 1.6;
-        }
-
-        form {
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-bottom: 30px;
-            width: 360px;
-        }
-
-        .file-input-wrapper {
-            position: relative;
-            overflow: hidden;
-            display: inline-block;
+            max-width: 900px; /* Constrain content width */
             width: 100%;
-            margin-bottom: 15px;
+            box-sizing: border-box;
+            flex-grow: 1; /* Allow content to grow and push footer down if content is short */
+            padding-bottom: 60px; /* Space for fixed footer */
         }
 
-        .file-input-wrapper input[type="file"] {
-            font-size: 100px;
+        .page-title {
+            font-family: 'Poppins', sans-serif;
+            color: #1a237e; /* Deep blue for titles */
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* Form Styling */
+        .upload-form {
+            background: #ffffff;
+            padding: 40px 50px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            width: 100%;
+            max-width: 450px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 40px;
+            border: 1px solid #e0e0e0; /* Subtle border */
+            box-sizing: border-box;
+        }
+
+        .file-input-group {
+            position: relative;
+            width: 100%;
+            margin-bottom: 25px;
+        }
+
+        .file-input-group input[type="file"] {
             position: absolute;
-            left: 0;
             top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             opacity: 0;
+            cursor: pointer;
+            z-index: 2; /* Ensure it's clickable */
         }
 
         .file-label {
-            display: inline-block;
-            background-color: #ecf0f1;
-            padding: 12px 20px;
-            border-radius: 6px;
-            font-size: 14px;
-            width: 100%;
-            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f4f8; /* Lighter background for label */
+            border: 2px dashed #a7d9ff; /* Dashed border for file input feel */
+            border-radius: 10px;
+            padding: 18px 25px;
+            font-size: 16px;
+            color: #444;
             cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center; /* Center text if it wraps */
         }
 
-        button {
-            background-color: #3498db;
+        .file-label:hover {
+            background-color: #e3f2fd;
+            border-color: #007bff;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
+        }
+
+        .file-label .file-icon {
+            margin-right: 12px;
+            color: #007bff;
+            font-size: 22px;
+        }
+
+        .submit-button {
+            background-color: #007bff; /* Primary action color */
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
+            padding: 15px 30px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 18px;
+            font-weight: 600;
             width: 100%;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
         }
 
-        button:hover {
-            background-color: #2980b9;
+        .submit-button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
         }
 
-        nav {
+        .submit-button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #007bff;
+            border-radius: 50%;
+            width: 24px; /* Slightly larger */
+            height: 24px;
+            animation: spin 1s linear infinite;
+            margin-top: 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Instructions Section */
+        .instructions-section {
+            background: #ffffff;
+            padding: 35px 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 800px; /* Wider for instructions */
+            margin-bottom: 40px;
+            border: 1px solid #e0e0e0;
+            box-sizing: border-box;
+        }
+
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            color: #1a237e;
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .instructions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid with smaller min-width */
+            gap: 25px;
+        }
+
+        .instruction-item {
+            background-color: #f7f9fc;
+            border-radius: 10px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            border: 1px solid #e8f0fe;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%; /* Ensure all items in a row have similar height */
+            box-sizing: border-box;
+        }
+
+        .instruction-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .instruction-item .instruction-icon {
+            font-size: 3em;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+
+        .instruction-item p {
+            font-size: 1.05em;
+            line-height: 1.7;
+            margin-bottom: 0;
+        }
+
+        .instruction-item ul {
+            list-style: none; /* Remove default bullets */
+            padding-left: 0;
+            margin-top: 10px;
+            width: 100%; /* Ensure UL takes full width */
+        }
+
+        .instruction-item ul li {
+            position: relative;
+            padding-left: 25px; /* More space for custom bullet */
+            margin-bottom: 8px;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .instruction-item ul li::before {
+            content: '\2022'; /* Unicode for a solid circle bullet */
+            color: #007bff;
             position: absolute;
-            top: 10px;
-            left: 10px;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.2em; /* Make bullet slightly larger */
+            top: 0; /* Align with the top of the text */
         }
 
-        nav a {
-            color: #3498db;
-            text-decoration: none;
-            font-size: 24px;
-        }
-
-        .footer {
-            position: absolute;
-            bottom: 10px;
-            right: 20px;
-            color: #999;
-            font-size: 14px;
-        }
-
-        .cartoon {
+        /* Cartoon and Footer */
+        .cartoon-animation {
             position: fixed;
             bottom: 0;
             left: 0;
-            width: 120px;
+            width: 150px; /* Slightly larger */
             height: auto;
+            z-index: 50; /* Ensure it's above other content but below header */
         }
 
-        .cartoon img {
-            width: 120px;
+        .cartoon-animation img {
+            width: 100%;
             height: auto;
-            animation: bike-move 10s linear infinite;
+            animation: bike-move 15s linear infinite; /* Slower, smoother animation */
         }
 
         @keyframes bike-move {
             0%   { transform: translateX(-150%); }
             100% { transform: translateX(120vw); }
         }
+
+        .app-footer {
+            position: fixed; /* Fixed position */
+            bottom: 0;
+            right: 20px;
+            padding: 10px 15px; /* Add padding for better look */
+            color: #888;
+            font-size: 0.9em;
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent background */
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px; /* Round both top corners */
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05); /* Subtle shadow above */
+            z-index: 99; /* Below header, above cartoon */
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            .app-header {
+                padding: 10px 20px;
+            }
+            .page-title {
+                font-size: 2em;
+                margin-top: 20px; /* Adjust for smaller screens */
+            }
+            .upload-form {
+                padding: 30px;
+                max-width: 90%; /* Allow form to take more width on small screens */
+            }
+            .file-label {
+                font-size: 15px;
+                padding: 15px 20px;
+            }
+            .file-label .file-icon {
+                font-size: 20px;
+                margin-right: 10px;
+            }
+            .submit-button {
+                font-size: 16px;
+                padding: 12px 25px;
+            }
+            .instructions-section {
+                padding: 25px 20px;
+                max-width: 90%;
+            }
+            .section-title {
+                font-size: 1.5em;
+            }
+            .instructions-grid {
+                grid-template-columns: 1fr; /* Single column on smaller screens */
+            }
+            .instruction-item {
+                padding: 20px;
+            }
+            .instruction-item .instruction-icon {
+                font-size: 2.5em;
+            }
+            .instruction-item p {
+                font-size: 1em;
+            }
+            .cartoon-animation {
+                width: 100px;
+            }
+            .app-footer {
+                right: 10px;
+                font-size: 0.8em;
+                padding: 8px 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 1.8em;
+            }
+            .upload-form {
+                padding: 25px;
+            }
+            .file-label {
+                font-size: 14px;
+                padding: 12px 15px;
+            }
+            .submit-button {
+                font-size: 15px;
+                padding: 10px 20px;
+            }
+            .instructions-section {
+                padding: 20px 15px;
+            }
+            .section-title {
+                font-size: 1.3em;
+            }
+            .instruction-item {
+                padding: 15px;
+            }
+            .instruction-item p, .instruction-item ul li {
+                font-size: 0.9em;
+            }
+        }
     </style>
 </head>
 <body>
-    <nav><a href="/">🏠</a></nav>
-    <h1>Upload Allure Report</h1>
+    <header class="app-header">
+        <nav class="main-nav">
+            <a href="/" class="nav-home-link" aria-label="Home"><i class="fas fa-home"></i> Allure Dashboard</a>
+        </nav>
+    </header>
 
-    <form action="/upload" method="POST" enctype="multipart/form-data">
-        <label class="file-input-wrapper">
-            <span class="file-label">Choose Allure Report Folder</span>
-            <input type="file" name="report_folder" multiple required>
-        </label>
-        <button type="submit">Upload and View Charts</button>
-    </form>
+    <main class="content-wrapper">
+        <h1 class="page-title">Upload Allure Report</h1>
 
-    <div class="instructions">
-        <strong>Instructions:</strong><br>
-        - Upload your Allure report folder.<br>
-        - After uploading, you’ll see 3 charts:<br>
-        &nbsp;&nbsp;1. <strong>Execution Time per Tag:</strong> Shows total time taken for each test case based on tags.<br>
-        &nbsp;&nbsp;2. <strong>Step Execution Time Variation:</strong> Visualizes how long individual steps take across different test cases.<br>
-        &nbsp;&nbsp;3. <strong>Step Execution Heatmap:</strong> Helps identify steps with high or low execution time across test cases.<br>
-        - Hover over bars or cells to see detailed info like step name, duration, and testcase ID.<br>
-        - Use this to detect bottlenecks, flaky tests, or performance outliers.
-    </div>
+        <form action="/upload" method="POST" enctype="multipart/form-data" class="upload-form">
+            <div class="file-input-group">
+                <label for="reportFileInput" class="file-label">
+                    <i class="fas fa-folder-open file-icon"></i>
+                    <span id="fileChosenText">Choose Allure Report Folder</span>
+                </label>
+                <input type="file" id="reportFileInput" name="report_folder" multiple required>
+            </div>
+            <button type="submit" class="submit-button">Upload and View Charts</button>
+            <div id="loadingIndicator" class="loading-spinner" style="display: none;"></div>
+        </form>
 
-    <div class="cartoon">
+        <section class="instructions-section">
+            <h2 class="section-title">Getting Started</h2>
+            <div class="instructions-grid">
+                <div class="instruction-item">
+                    <i class="fas fa-upload instruction-icon"></i>
+                    <p><strong>Upload your Allure report folder.</strong></p>
+                </div>
+                <div class="instruction-item">
+                    <i class="fas fa-chart-bar instruction-icon"></i>
+                    <p>After uploading, you’ll see 3 insightful charts:</p>
+                    <ul>
+                        <li><strong>Execution Time per Tag:</strong> Total time for each test case based on tags.</li>
+                        <li><strong>Step Execution Time Variation:</strong> How long individual steps take across test cases.</li>
+                        <li><strong>Step Execution Heatmap:</strong> Identify steps with high/low execution time across test cases.</li>
+                    </ul>
+                </div>
+                <div class="instruction-item">
+                    <i class="fas fa-mouse-pointer instruction-icon"></i>
+                    <p>Hover over bars or cells for detailed info (step name, duration, testcase ID).</p>
+                </div>
+                <div class="instruction-item">
+                    <i class="fas fa-magnifying-glass-chart instruction-icon"></i> <p>Use these insights to detect bottlenecks, flaky tests, or performance outliers.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="cartoon-animation">
         <img src="https://i.gifer.com/ScGA.gif" alt="Bike animation">
     </div>
 
-    <div class="footer">Epam Project OneInc</div>
+    <footer class="app-footer">
+        <span>Vegesh Boppana</span>
+    </footer>
+
+    <script>
+        // JavaScript for file input label update and loading indicator
+        document.getElementById('reportFileInput').addEventListener('change', function() {
+            const fileChosenText = document.getElementById('fileChosenText');
+            if (this.files.length > 0) {
+                fileChosenText.textContent = this.files.length === 1 ? this.files[0].name : `${this.files.length} files selected`;
+            } else {
+                fileChosenText.textContent = 'Choose Allure Report Folder';
+            }
+        });
+
+        document.querySelector('.upload-form').addEventListener('submit', function() {
+            document.getElementById('loadingIndicator').style.display = 'block';
+            this.querySelector('.submit-button').disabled = true; // Disable button to prevent multiple submissions
+            // Optional: You might want to add a small delay here for the loading spinner to be visible
+            // setTimeout(() => { this.submit(); }, 100); // Only if you are not making an AJAX call
+        });
+    </script>
 </body>
 </html>
